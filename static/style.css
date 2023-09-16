@@ -3,3 +3,17 @@ body {
     height: 100%;
     background-color: aquamarine;
 }
+
+#addAllergiesPopup {
+    border-radius: 50%;
+    background-color: orangered;
+    width: 50px;
+    height: 50px;
+    box-shadow: 2px 2px 5px grey;
+}
+
+.prevent-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
