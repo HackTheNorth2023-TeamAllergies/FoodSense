@@ -10,5 +10,22 @@
 </head>
 <body>
     <h1>This is the homepage</h1>
+    <div>
+        <video autoplay="true" id="videoElement">
+	
+        </video>
+    </div>
 </body>
+<script>
+    var video = document.querySelector("#videoElement");
+    if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            video.srcObject = stream;
+        })
+        .catch(function (err0r) {
+            console.log("Something went wrong!");
+        });
+    }
+</script>
 </html>
