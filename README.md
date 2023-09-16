@@ -1,1 +1,1 @@
-# AllergyScanner
+# FoodSense
