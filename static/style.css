@@ -19,6 +19,7 @@ body {
     left: calc(95% - 20% + 50px);
 
     animation-fill-mode: forwards;
+    overflow-y: hidden;
 }
 @keyframes showAddAllergiesPopup {
     0% {

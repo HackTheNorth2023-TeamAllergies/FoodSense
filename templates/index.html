@@ -47,7 +47,7 @@
     var addAllergiesPopup = document.getElementById('addAllergiesPopup')
     var addAllergiesButton = document.getElementById('addAllergiesButton')
     var allergyListElement = document.getElementById('allergyList')
-    var allergyList = ['Eggs', 'Nuts', 'Sesame', 'Sunflower']
+    var allergyList = []
 
     window.onload = function() {
         generateAllergyList()
@@ -84,6 +84,7 @@
     }
 
     function generateAllergyList() {
+        console.log(allergyList)
         for (var i = 0; i < allergyList.length; i++) {
             var allergyDiv = document.createElement('div');
             var deleteAllergy = document.createElement('span');
@@ -94,6 +95,12 @@
             allergyDiv.style.marginBottom = '0%';
             allergyDiv.chosenDisplay = 'block';
             deleteAllergy.innerHTML = '&times;';
+            deleteAllergy.index = i;
+            deleteAllergy.onclick = function(event) {
+                allergyList.splice(event.target.index, 1);
+                allergyListElement.innerHTML = ''
+                generateAllergyList()
+            }
             deleteAllergy.style.display = 'inline-block'
             allergyText.innerHTML = `${allergyList[i]}`;
             allergyText.style.display = 'inline-block'
@@ -102,6 +109,33 @@
             allergyDiv.appendChild(allergyText);
             allergyListElement.appendChild(allergyDiv)
         }
+        var inputAllergyDiv = document.createElement('div');
+        inputAllergyDiv.style.height = '50px'
+        inputAllergyDiv.style.position = 'absolute'
+        inputAllergyDiv.style.bottom = '0px'
+        var inputAllergy = document.createElement('input');
+        inputAllergy.type = 'text';
+        inputAllergy.id = 'inputAllergy'
+        inputAllergy.style.width = 'calc(60% - 30px)'
+        inputAllergy.style.height = '50px'
+        inputAllergy.style.borderRadius = '33% 0 0 33%'
+        var submitAllergy = document.createElement('button')
+        submitAllergy.style.width = 'calc(40% - 20px)'
+        submitAllergy.style.height = '50px'
+        submitAllergy.style.borderRadius = '0 33% 33% 0'
+        submitAllergy.innerHTML = 'Submit'
+        submitAllergy.onclick = function (event) {
+            if (!document.getElementById('inputAllergy').value) {
+                return;
+            }
+            allergyList.push(document.getElementById('inputAllergy').value);
+            allergyListElement.innerHTML = ''
+            generateAllergyList()
+        }
+        inputAllergyDiv.appendChild(inputAllergy)
+        inputAllergyDiv.appendChild(submitAllergy)
+
+        allergyListElement.appendChild(inputAllergyDiv)
     }
 
     function hideElement(element) {
@@ -109,8 +143,9 @@
     }
     function showElement(element, display) {
         var nextElement = element;
-        while (nextElement.children) {
+        do {
             for (var i = 0; i < nextElement.length; i++) {
+                console.log(nextElement[i])
                 if (nextElement[i].chosenDisplay) {
                     nextElement[i].style.display = nextElement[i].chosenDisplay
                     continue;
@@ -118,7 +153,7 @@
                 nextElement[i].style.display = display
             }
             nextElement = nextElement.children;
-        }
+        } while (nextElement.children);
     }
 </script>
 </html>
