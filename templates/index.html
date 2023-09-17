@@ -1,3 +1,5 @@
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,32 +19,39 @@
 <body>
     <div class = "home-header">
         <img class = "home-logo" src="../static/img/logo.png">
+        <button class="accountButtons">
+            Login
+        </button>
+        <button class="accountButtons">
+            Signup
+        </button>
     </div>
-    <button class="accountButtons">
-        Login
-    </button>
-    <button class="accountButtons">
-        Signup
-    </button>
-    <form action="/test" method="post">
-        <label for="name">Name</label><br>
-        <input type="text" id="fname" name="name" value=""><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" value=""><br><br>
-        <input type="submit" value="Submit">
-      </form> 
-    <div>
-        <video autoplay="true" id="videoElement">
-	
-        </video>
+    <div id="loginModal" class="modal">
+        <div id="loginModalContent" class="modal-content">
+            <form>
+                <label for="name">Enter your name:</label>
+                <input type="email" id="email" name="email">
+                <label for="email">Enter your email:</label>
+                <input type="email" id="email" name="email">
+                <p></p>
+            </form>
+        </div>
+    </div>
+    <div style="width: 50%; height: 50%">
+        <video autoplay="true" id="videoElement" style="width: 100%; max-height: 50%;"></video>
+        <div id="cameraImageDiv" style="background-color: white; position: absolute; top: 0; left: 0; z-index: 1; width: 50%; height: 50%">
+            <img id="cameraImage" src="../static/img/photo-camera.svg" style="width: 100%; height: 100%" onclick="turnOnVideo()">
+        </div>
     </div>
     <div id="addAllergiesPopup">
         <div id="allergyList"></div>
     </div>
     <div id="addAllergiesButton" onclick="showAddAllergiesPopup()"></div>
+    <canvas id="canvas"></canvas>
 </body>
 
 <script>
+    var data = '{{data}}'
 
     var addAllergiesPopup = document.getElementById('addAllergiesPopup')
     var addAllergiesButton = document.getElementById('addAllergiesButton')
@@ -53,15 +62,36 @@
         generateAllergyList()
     }
 
-    var video = document.querySelector("#videoElement");
-    if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-            video.srcObject = stream;
-        })
-        .catch(function (err0r) {
-            console.log("Something went wrong!");
-        });
+    function turnOnVideo() {
+        var video = document.querySelector("#videoElement");
+        video.innerHTML = ''
+        if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                document.getElementById("cameraImageDiv").style.display = 'none';
+                video.srcObject = stream;
+                console.log('good')
+                captureFrame()
+            })
+            .catch(function (err0r) {
+                console.log("Something went wrong!");
+            });
+        }
+    }
+    function captureFrame() {
+        var canvas = document.querySelector("#canvas");
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Access the current frame as an ImageData object
+        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        console.log('Image Data: ' + imageData)
+
+        // Now you can process or display the imageData as needed
+        // For example, you can access pixel data using imageData.data
+
+        // Continue capturing frames in real-time
+        // requestAnimationFrame(captureFrame);
     }
 
     function showAddAllergiesPopup() {
@@ -119,11 +149,12 @@
         inputAllergy.style.width = 'calc(60% - 30px)'
         inputAllergy.style.height = '50px'
         inputAllergy.style.borderRadius = '33% 0 0 33%'
+        inputAllergy.placeholder = 'Allergy'
         var submitAllergy = document.createElement('button')
         submitAllergy.style.width = 'calc(40% - 20px)'
         submitAllergy.style.height = '50px'
         submitAllergy.style.borderRadius = '0 33% 33% 0'
-        submitAllergy.innerHTML = 'Submit'
+        submitAllergy.innerHTML = 'Add'
         submitAllergy.onclick = function (event) {
             if (!document.getElementById('inputAllergy').value) {
                 return;
@@ -157,3 +188,5 @@
     }
 </script>
 </html>
+
+{%- endblock %}

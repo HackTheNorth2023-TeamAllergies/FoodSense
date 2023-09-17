@@ -79,7 +79,7 @@ body {
     height: 35%;
     position: absolute;
     transform: translate(-50%, -50%);
-    background-color: aquamarine;
+    background-color: rgb(255, 255, 255);
     box-shadow: 2px 2px 5px grey;
 
     top: 50%;
@@ -91,7 +91,7 @@ body {
     height: 10%;
     position: absolute;
     transform: translate(-50%, -50%);
-    background-color: aquamarine;
+    background-color: rgb(255, 255, 255);
     /* box-shadow: 2px 2px 5px grey; */
 
     top: 50%;
@@ -105,11 +105,20 @@ body {
 }
 
 .home-logo{
-    max-width: 50px;
+    max-height: 25px;
 }
 
 .home-header{
-    height: 20%;
+    height: 25px;
     border: 1px solid pink;
     background-color: pink;
+    padding: 0;
+    top: 0;
+    position: sticky;
+    z-index: 2;
+}
+
+.accountButtons {
+    float: right;
+    max-height: 25px;
 }
