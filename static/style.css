@@ -84,3 +84,13 @@ body {
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
+
+.home-logo{
+    max-width: 50px;
+}
+
+.home-header{
+    height: 20%;
+    border: 1px solid pink;
+    background-color: pink;
+}
