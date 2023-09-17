@@ -28,11 +28,21 @@
 	
         </video>
     </div>
-    <div id="addAllergiesPopup"></div>
+    <div id="addAllergiesPopup">
+        <div id="allergyList"></div>
+    </div>
     <div id="addAllergiesButton" onclick="showAddAllergiesPopup()"></div>
 </body>
 <script>
+
     var addAllergiesPopup = document.getElementById('addAllergiesPopup')
+    var addAllergiesButton = document.getElementById('addAllergiesButton')
+    var allergyListElement = document.getElementById('allergyList')
+    var allergyList = ['Eggs', 'Nuts', 'Sesame', 'Sunflower']
+
+    window.onload = function() {
+        generateAllergyList()
+    }
 
     var video = document.querySelector("#videoElement");
     if (navigator.mediaDevices.getUserMedia) {
@@ -47,14 +57,58 @@
 
     function showAddAllergiesPopup() {
         if (addAllergiesPopup.showing) {
+            hideElement(addAllergiesPopup)
             addAllergiesPopup.style.animationName = 'hideAddAllergiesPopup'
             addAllergiesPopup.style.animationDuration = '0.5s'
+            addAllergiesButton.style.animationName = 'rotateAddAllergiesButtonHide'
+            addAllergiesButton.style.animationDuration = '0.5s'
             delete addAllergiesPopup.showing
         }
         else {
             addAllergiesPopup.showing = true
+            showElement(addAllergiesPopup, 'inline-block')
             addAllergiesPopup.style.animationName = 'showAddAllergiesPopup'
             addAllergiesPopup.style.animationDuration = '0.5s'
+            addAllergiesButton.style.animationName = 'rotateAddAllergiesButtonShow'
+            addAllergiesButton.style.animationDuration = '0.5s'
+        }
+    }
+
+    function generateAllergyList() {
+        for (var i = 0; i < allergyList.length; i++) {
+            var allergyDiv = document.createElement('div');
+            var deleteAllergy = document.createElement('span');
+            var allergyText = document.createElement('p');
+
+            allergyDiv.style.marginLeft = '5%';
+            allergyDiv.style.marginTop = '5%';
+            allergyDiv.style.marginBottom = '0%';
+            allergyDiv.chosenDisplay = 'block';
+            deleteAllergy.innerHTML = '&times;';
+            deleteAllergy.style.display = 'inline-block'
+            allergyText.innerHTML = `${allergyList[i]}`;
+            allergyText.style.display = 'inline-block'
+
+            allergyDiv.appendChild(deleteAllergy);
+            allergyDiv.appendChild(allergyText);
+            allergyListElement.appendChild(allergyDiv)
+        }
+    }
+
+    function hideElement(element) {
+        showElement(element, 'none')
+    }
+    function showElement(element, display) {
+        var nextElement = element;
+        while (nextElement.children) {
+            for (var i = 0; i < nextElement.length; i++) {
+                if (nextElement[i].chosenDisplay) {
+                    nextElement[i].style.display = nextElement[i].chosenDisplay
+                    continue;
+                }
+                nextElement[i].style.display = display
+            }
+            nextElement = nextElement.children;
         }
     }
 </script>
