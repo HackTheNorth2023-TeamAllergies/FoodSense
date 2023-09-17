@@ -1,9 +1,8 @@
-body {
+html, body {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
-    background-color: aquamarine;
 }
 
 #addAllergiesPopup {
@@ -104,12 +103,64 @@ body {
     user-select: none; /* Standard syntax */
 }
 
+.page-content{
+    height: 100%;
+    display:flex; 
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .home-logo{
-    max-width: 50px;
+    max-height: 70%;
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes floating{
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 11px); }
+    100%   { transform: translate(0, -0px); }   
 }
 
 .home-header{
-    height: 20%;
-    border: 1px solid pink;
-    background-color: pink;
+    display: flex;
+    justify-content: center;
+    height: 40%;
+}
+
+.home-content{
+    max-width: 50%;
+}
+
+#videoElement{
+    height:40%; 
+}
+
+.description{
+    font-family: 'Inclusive Sans', sans-serif;
+    text-align: center;
+    color: #D26135;
+    transition: transform .1s;
+}
+
+.content-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.description:hover{
+    transform: scale(1.01);
+}
+
+.page-content a{
+    color: #D26135;
+}
+
+.page-content a:hover{
+    color: #ac4922;
+    transform: scale(1.1);
 }
