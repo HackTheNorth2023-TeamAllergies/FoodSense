@@ -122,17 +122,18 @@ ingredients_text = ""
 
 
 
-while True:
+def vision(frame):
 
-    ret, frame = cap.read()
-
+    # ret, frame = cap.read()
+    ret = cap.read()
+    print(frame)
 
 
     if not ret:
 
         print("Error: Cannot read frame")
 
-        break
+        return
 
 
 
@@ -214,9 +215,7 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
 
-        break
-
-
+        return
 
 cap.release()
 

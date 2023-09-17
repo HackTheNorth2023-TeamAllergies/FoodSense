@@ -74,14 +74,14 @@
                 captureFrame()
             })
             .catch(function (err0r) {
-                console.log("Something went wrong!");
+                console.log("Something went wrong!" + err0r);
             });
         }
     }
     function captureFrame() {
         var canvas = document.querySelector("#canvas");
         var ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(document.querySelector("#videoElement"), 0, 0, canvas.width, canvas.height);
 
         // Access the current frame as an ImageData object
         var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
