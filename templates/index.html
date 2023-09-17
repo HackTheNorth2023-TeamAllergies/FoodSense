@@ -10,6 +10,12 @@
 </head>
 <body>
     <h1>This is the homepage</h1>
+    <button class="accountButtons">
+        Login
+    </button>
+    <button class="accountButtons">
+        Signup
+    </button>
     <form action="/test" method="post">
         <label for="name">Name</label><br>
         <input type="text" id="fname" name="name" value=""><br>
@@ -22,10 +28,12 @@
 	
         </video>
     </div>
-    <div id="addAllergiesPopup" class="prevent-select">
-    </div>
+    <div id="addAllergiesPopup"></div>
+    <div id="addAllergiesButton" onclick="showAddAllergiesPopup()"></div>
 </body>
 <script>
+    var addAllergiesPopup = document.getElementById('addAllergiesPopup')
+
     var video = document.querySelector("#videoElement");
     if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -35,6 +43,19 @@
         .catch(function (err0r) {
             console.log("Something went wrong!");
         });
+    }
+
+    function showAddAllergiesPopup() {
+        if (addAllergiesPopup.showing) {
+            addAllergiesPopup.style.animationName = 'hideAddAllergiesPopup'
+            addAllergiesPopup.style.animationDuration = '0.5s'
+            delete addAllergiesPopup.showing
+        }
+        else {
+            addAllergiesPopup.showing = true
+            addAllergiesPopup.style.animationName = 'showAddAllergiesPopup'
+            addAllergiesPopup.style.animationDuration = '0.5s'
+        }
     }
 </script>
 </html>
