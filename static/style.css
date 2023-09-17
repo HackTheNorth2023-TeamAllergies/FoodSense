@@ -16,9 +16,10 @@ body {
     box-shadow: 2px 2px 5px grey;
 
     top: calc(80% - 300px + 50px);
-    left: calc(80% - 20% + 50px);
+    left: calc(95% - 20% + 50px);
 
     animation-fill-mode: forwards;
+    overflow-y: hidden;
 }
 @keyframes showAddAllergiesPopup {
     0% {
@@ -40,6 +41,22 @@ body {
         top: calc(80% + 50px)
     }
 }
+@keyframes rotateAddAllergiesButtonShow {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 45deg;
+    }
+}
+@keyframes rotateAddAllergiesButtonHide {
+    0% {
+        rotate: 45deg;
+    }
+    100% {
+        rotate: 0deg;
+    }
+}
 
 
 #addAllergiesButton {
@@ -49,10 +66,12 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    box-shadow: 2px 2px 5px grey;
+    /* box-shadow: 2px 2px 5px grey; */
 
     top: 80%;
-    left: 80%;
+    left: 95%;
+
+    animation-fill-mode: forwards;
 }
 #addAllergiesButton::before {
     content: '';
